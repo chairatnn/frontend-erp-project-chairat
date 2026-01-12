@@ -22,30 +22,44 @@ export function Navbar({ user, authLoading, authError, login, logout }) {
 
   return (
     <nav>
-      <div className="flex justify-between px-10 items-center w-full bg-blue-500 h-14 border-b-2 border-black gap-x-6 text-2xl text-white ">
+      <div className="flex flex-col md:flex-row justify-between px-10 items-center w-full bg-blue-500 h-15 border-b-2 border-black gap-x-4 text-xl text-white ">
         <ul className="flex items-center gap-x-6">
           <li>
-            <Link to="/" className="hover:text-amber-500">
+            <Link
+              to="/"
+              className="hover:text-amber-500"
+              onClick={() => {
+                if (window.location.pathname === "/") {
+                  window.location.reload();
+                }
+              }}
+            >
               Home
             </Link>
           </li>
           <li>
-            <Link to="/owner" className="hover:text-amber-500">
-              Owner
+            <Link to="/DashBoard" className="hover:text-amber-500">
+              Dashboard
+            </Link>
+          </li>
+          <li>
+            <Link to="/AboutUs" className="hover:text-amber-500">
+              AboutUs
             </Link>
           </li>
         </ul>
-        <div className="flex items-center gap-x-3">
+        <div className="flex items-center gap-x-2">
           {authLoading ? (
             <span className="text-base">Checking auth session...</span>
           ) : user ? (
             <>
               <span className="text-base">
-                Logged in as <span className="text-amber-400">{user.username}</span>
+                Logged in as :{" "}
+                <span className="text-amber-400">{user.username}</span>
               </span>
               <button
                 onClick={logout}
-                className="cursor-pointer bg-amber-500 hover:bg-amber-600 text-white px-3 py-1 rounded-xl text-base"
+                className="text-white hover:text-amber-400 text-base px-1 py-1 rounded-xl text-decoration: underline"
               >
                 Logout
               </button>
@@ -58,7 +72,7 @@ export function Navbar({ user, authLoading, authError, login, logout }) {
                 placeholder="email"
                 required
                 type="email"
-                className="bg-white text-black px-2 rounded border text-base w-44"
+                className="bg-white text-black px-2 rounded border text-base w-40 md:w-50"
               />
               <input
                 value={password}
@@ -67,12 +81,12 @@ export function Navbar({ user, authLoading, authError, login, logout }) {
                 required
                 type="password"
                 minLength={8}
-                className="bg-white text-black px-2 rounded border text-base w-32"
+                className="bg-white text-black px-2 rounded border text-base w-20 md:w-30"
               />
               <button
                 type="submit"
                 disabled={submitting}
-                className="cursor-pointer bg-sky-500 hover:bg-sky-600 disabled:bg-sky-300 text-white px-3 py-1 rounded-xl text-base"
+                className="cursor-pointer bg-indigo-600 text-white hover:text-amber-400 px-2 py-0 rounded text-base"
               >
                 Login
               </button>

@@ -79,7 +79,7 @@ export function Layout() {
         login={login}
         logout={logout}
       />
-      <section className="bg-gradient-to-r from-teal-100 to-blue-400 flex justify-center">
+      <section className="bg-gradient-to-bl from-blue-500 to-teal-100 flex justify-center">
         <Outlet context={{ user, authLoading, apiBase }} />
       </section>
     </div>

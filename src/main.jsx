@@ -3,8 +3,9 @@ import "./index.css";
 import App from "./App.jsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./views/Home.jsx";
-import Owner from "./views/Owner.jsx";
 import { Layout } from "./views/Layout.jsx";
+import AboutUs from "./views/AboutUs";
+import DashBoard from "./views/DashBoard";
 
 const router = createBrowserRouter([
   {
@@ -16,7 +17,8 @@ const router = createBrowserRouter([
         element: <Layout />,
         children: [
           { path: "/", element: <Home /> },
-          { path: "/owner", element: <Owner /> },
+          { path: "/aboutus", element: <AboutUs /> },
+          { path: "/dashboard", element: <DashBoard /> },
         ],
       },
     ],
