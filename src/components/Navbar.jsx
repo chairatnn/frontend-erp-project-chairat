@@ -22,7 +22,7 @@ export function Navbar({ user, authLoading, authError, login, logout }) {
 
   return (
     <nav>
-      <div className="flex flex-col md:flex-row justify-between px-10 items-center w-full bg-blue-500 h-15 border-b-2 border-black gap-x-4 text-xl text-white ">
+      <div className="flex flex-col md:flex-row justify-between px-10 py-1 items-center w-full bg-blue-500 h-15 border-b-2 border-black gap-x-4 text-xl text-white ">
         <ul className="flex items-center gap-x-6">
           <li>
             <Link
@@ -55,11 +55,11 @@ export function Navbar({ user, authLoading, authError, login, logout }) {
             <>
               <span className="text-base">
                 Logged in as :{" "}
-                <span className="text-amber-400">{user.username}</span>
+                <span className="text-amber-300">{user.username}</span>
               </span>
               <button
                 onClick={logout}
-                className="text-white hover:text-amber-400 text-base px-1 py-1 rounded-xl text-decoration: underline"
+                className="cursor-pointer px-2 py-0 rounded-full text-base text-white hover:text-rose-400 bg-blue-600 hover:bg-blue-700"
               >
                 Logout
               </button>

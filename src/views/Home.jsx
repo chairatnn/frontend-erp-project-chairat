@@ -7,6 +7,15 @@ import { SaleTable } from "../components/SaleTable";
 import { ProductionTable } from "../components/ProductionTable";
 import { PurchaseTable } from "../components/PurchaseTable";
 import { WarehouseTable } from "../components/WarehouseTable";
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "../components/ui/table";
 
 export default function Home() {
   const { user, authLoading, apiBase } = useOutletContext();
@@ -64,44 +73,17 @@ export default function Home() {
 
   return (
     <div className="min-h-screen p-6 gap-y-6 flex flex-col justify-start w-full">
-      <section className="mt-2 text-white text-3xl md:text-4xl font-extrabold text-center">
+      <section className="mt-2 text-amber-300 text-3xl md:text-4xl font-extrabold text-center">
         <h1>mini-ERP for StartUp</h1>
-        <h1 className="text-2xl text-white py-2 hidden md:block">
+        <h1 className="text-2xl text-amber-300 py-2 hidden md:block">
           Generation Thailand JSD#11
         </h1>
       </section>
 
-      <section className="flex flex-col md:flex-row justify-center items-center gap-2 md:gap-x-4 font-bold p-2">
-        <button
-          onClick={() => setView("sale")}
-          className="w-full md:w-auto px-6 py-2 rounded-xl bg-blue-400 cursor-pointer border hover:bg-blue-300"
-        >
-          Sale&Mkt Department
-        </button>
-        <button
-          onClick={() => setView("purchase")}
-          className="w-full md:w-auto px-6 py-2 rounded-xl bg-blue-400 cursor-pointer border hover:bg-blue-300"
-        >
-          Purchase Department
-        </button>
-        <button
-          onClick={() => setView("production")}
-          className="w-full md:w-auto px-6 py-2 rounded-xl bg-blue-400 cursor-pointer border hover:bg-blue-300"
-        >
-          Production Department
-        </button>
-        <button
-          onClick={() => setView("warehouse")}
-          className="w-full md:w-auto px-6 py-2 rounded-xl bg-blue-400 cursor-pointer border hover:bg-blue-300"
-        >
-          WareHouse Department
-        </button>
-      </section>
-
       <section className="w-full flex justify-center">
-        <div className="w-full max-w-xl bg-gradient-to-r from-indigo-500 to-indigo-300 border rounded-2xl p-5">
+        <div className="w-full max-w-xl bg-gradient-to-r from-indigo-600 to-gray-300 border rounded-2xl p-5">
           <div className="font-bold text-lg text-amber-300">
-            Ask AI about products 🧠 ✨
+            Ask AI about ... 🧠 ✨
           </div>
           {authLoading ? (
             <div className="text-sm mt-2">Checking login...</div>
@@ -154,6 +136,33 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="flex flex-col md:flex-row justify-center items-center gap-2 md:gap-x-4 font-bold p-2">
+        <button
+          onClick={() => setView("sale")}
+          className="w-full md:w-auto px-6 py-2 rounded-xl text-white hover:text-amber-300 bg-blue-500 cursor-pointer border hover:bg-blue-600"
+        >
+          Marketing Department
+        </button>
+        <button
+          onClick={() => setView("purchase")}
+          className="w-full md:w-auto px-6 py-2 rounded-xl text-white hover:text-amber-300 bg-blue-500 cursor-pointer border hover:bg-blue-600"
+        >
+          Purchasing Department
+        </button>
+        <button
+          onClick={() => setView("production")}
+          className="w-full md:w-auto px-6 py-2 rounded-xl text-white hover:text-amber-300 bg-blue-500 cursor-pointer border hover:bg-blue-600"
+        >
+          Production Department
+        </button>
+        <button
+          onClick={() => setView("warehouse")}
+          className="w-full md:w-auto px-6 py-2 rounded-xl text-white hover:text-amber-300 bg-blue-500 cursor-pointer border hover:bg-blue-600"
+        >
+          WareHouse Department
+        </button>
+      </section>
+
       <section className="w-full flex justify-center gap-x-3">
         {view === "user" ? (
           <section className=" p-5  flex">
@@ -186,7 +195,7 @@ export default function Home() {
                 API={apiBase}
               />
             ) : (
-              <div>Please login to access Sale Section</div>
+              <div>Please login to access with Sale role</div>
             )}
           </section>
         ) : view === "purchase" ? (
@@ -201,7 +210,7 @@ export default function Home() {
                 API={apiBase}
               />
             ) : (
-              <div>Please login to access Purchase Section</div>
+              <div>Please login to access with Purchase role</div>
             )}
           </section>
         ) : view === "production" ? (
@@ -216,7 +225,7 @@ export default function Home() {
                 API={apiBase}
               />
             ) : (
-              <div>Please login to access Production Section</div>
+              <div>Please login to access with Production role</div>
             )}
           </section>
         ) : view === "warehouse" ? (
@@ -231,15 +240,12 @@ export default function Home() {
                 API={apiBase}
               />
             ) : (
-              <div>Please login to access Warehouse Section</div>
+              <div>Please login to access with Warehouse role</div>
             )}
           </section>
         ) : null}
       </section>
 
-      {/* <img src="artificial.gif" alt="dashboard image"
-     className="relative z-10 w-auto h-auto object-cover rounded-lg shadow-lg p-0 md:p-4"
-      /> */}
       {view === null && (
         <div className="w-full max-w-7xl mx-auto mt-0.5">
           <video
@@ -252,11 +258,11 @@ export default function Home() {
             <source src="city.mp4" type="video/mp4" />
             Your browser does not support the video tag.
           </video>
-          <p className="text-center mt-2 text-gray-900 font-medium italic">
-            © 2026 Chairat Nuansamniang. Welcome to mini-ERP for StartUp
-          </p>
         </div>
       )}
+      <p className="text-center mt-2 text-gray-900 font-medium italic">
+        © 2026 Chairat Nuansamniang. Welcome to mini-ERP for StartUp
+      </p>
     </div>
   );
 }
