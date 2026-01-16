@@ -7,20 +7,12 @@ import { SaleTable } from "../components/SaleTable";
 import { ProductionTable } from "../components/ProductionTable";
 import { PurchaseTable } from "../components/PurchaseTable";
 import { WarehouseTable } from "../components/WarehouseTable";
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "../components/ui/table";
 
 export default function Home() {
   const { user, authLoading, apiBase } = useOutletContext();
   const [view, setView] = useState(null);
   const [users, setUsers] = useState([]);
+  const [products, setProducts] = useState([]);
 
   const [question, setQuestion] = useState("");
   const [askLoading, setAskLoading] = useState(false);
@@ -29,15 +21,25 @@ export default function Home() {
 
   const fetchUsers = async () => {
     try {
-      const res = await axios.get(apiBase);
-      setUsers(res.data.data);
+      const res1 = await axios.get(apiBase);
+      setUsers(res1.data.data);
     } catch {
       alert("Failed to fetch users");
     }
   };
 
+  const fetchProducts = async () => {
+    try {
+      const res2 = await axios.get(apiBase);
+      setProducts(res2.data.data);
+    } catch {
+      alert("Failed to fetch products");
+    }
+  };
+
   useEffect(() => {
     fetchUsers();
+    fetchProducts();
   }, []);
 
   const askAi = async (e) => {
@@ -189,9 +191,9 @@ export default function Home() {
               <div>Checking user auth...</div>
             ) : user ? (
               <SaleTable
-                users={users}
-                setUsers={setUsers}
-                fetchUsers={fetchUsers}
+                products={products}
+                setProducts={setProducts}
+                fetchProducts={fetchProducts}
                 API={apiBase}
               />
             ) : (

@@ -1,19 +1,20 @@
 import axios from "axios";
 import { useState } from "react";
 
-export function SaleTable({ users, setUsers, fetchUsers, API }) {
+export function SaleTable({ products, setProducts, fetchProducts, API }) {
   const [form, setForm] = useState({
-    username: "",
-    email: "",
-    role: "",
-    password: "",
+    order: "",
+    customer: "",
+    product: "",
+    amount: "",
   });
 
   const [editId, setEditId] = useState(null);
   const [editForm, setEditForm] = useState({
-    username: "",
-    email: "",
-    role: "",
+    order: "",
+    customer: "",
+    product: "",
+    amount: "",
   });
 
   const handleChange = (e) => {
@@ -28,41 +29,42 @@ export function SaleTable({ users, setUsers, fetchUsers, API }) {
     e.preventDefault();
     try {
       await axios.post(API, form, { withCredentials: true });
-      await fetchUsers();
+      await fetchProducts();
       // Reset the form
       setForm({
-        username: "",
-        email: "",
-        role: "",
-        password: "",
+        order: "",
+        customer: "",
+        product: "",
+        amount: "",
       });
     } catch (error) {
-      console.error("Error creating user:", error);
+      console.error("Error creating oder:", error);
     }
   };
 
   const handleDelete = async (id) => {
-    if (!window.confirm("Delete this user?")) return;
+    if (!window.confirm("Delete this oder?")) return;
     await axios.delete(`${API}/${id}`, { withCredentials: true });
-    setUsers(users.filter((user) => user._id !== id));
+    setProducts(products.filter((product) => product._id !== id));
   };
 
-  const handleEdit = (user) => {
-    setEditId(user._id);
+  const handleEdit = (product) => {
+    setEditId(product._id);
     setEditForm({
-      username: user.username,
-      email: user.email,
-      role: user.role,
+      order: product.order,
+      customer: product.customer,
+      product: product.product,
+      amount: product.amount,
     });
   };
 
   const handleEditSave = async (id) => {
     try {
       await axios.patch(`${API}/${id}`, editForm, { withCredentials: true });
-      await fetchUsers();
+      await fetchProducts();
       setEditId(null);
     } catch (error) {
-      console.error("Error updating member:", error);
+      console.error("Error updating order:", error);
     }
   };
 
@@ -75,80 +77,89 @@ export function SaleTable({ users, setUsers, fetchUsers, API }) {
       <form onSubmit={handleSubmit} className="pb-3">
         <input
           onChange={handleChange}
-          value={form.username}
-          name="username"
+          value={form.order}
+          name="order"
           className="bg-white mx-1 w-32 px-2 rounded border"
-          placeholder="Username"
+          placeholder="Order"
         />
         <input
           onChange={handleChange}
-          value={form.email}
-          name="email"
+          value={form.customer}
+          name="customer"
           className="bg-white mx-1 w-32 px-2 rounded border"
-          placeholder="Email"
+          placeholder="Customer"
         />
         <input
           onChange={handleChange}
-          value={form.role}
-          name="role"
+          value={form.product}
+          name="product"
           className="bg-white mx-1 w-32 px-2 rounded border"
-          placeholder="Role"
+          placeholder="Product"
         />
         <input
           onChange={handleChange}
-          value={form.password}
-          name="password"
+          value={form.amount}
+          name="amount"
           className="bg-white mx-1 w-32 px-2 rounded border"
-          placeholder="Password"
+          placeholder="Amount"
         />
         <button
           type="submit"
           className="cursor-pointer bg-sky-500 hover:bg-sky-600 text-white px-3 py-2 mx-1 rounded-4xl"
         >
-          Save new user
+          Save new oder
         </button>
       </form>
       <table className="w-full border-separate">
         <thead>
           <tr className="text-center font-bold bg-gray-200">
-            <th className="border rounded-tl-lg p-2">Username</th>
-            <th className="border p-2">Email</th>
-            <th className="border p-2">Role</th>
+            <th className="border rounded-tl-lg p-2">Order</th>
+            <th className="border p-2">Customer</th>
+            <th className="border p-2">Product</th>
+            <th className="border p-2">Amount</th>
             <th className="border rounded-tr-lg p-2">Action</th>
           </tr>
         </thead>
         <tbody>
-          {users.map((user) => (
-            <tr key={user._id} className="bg-white">
-              {editId === user._id ? (
+          {products.map((product) => (
+            <tr key={product._id} className="bg-white">
+              {editId === product._id ? (
                 <>
                   <td className="border p-2 ">
                     <input
-                      value={editForm.username}
+                      value={editForm.order}
                       onChange={handleEditChange}
-                      name="username"
+                      name="order"
                       className="bg-white w-24 px-2 rounded border"
                     />
                   </td>
                   <td className="border p-2 ">
                     <input
-                      value={editForm.email}
+                      value={editForm.customer}
                       onChange={handleEditChange}
-                      name="email"
+                      name="customer"
                       className="bg-white w-24 px-2 rounded border"
                     />
                   </td>
                   <td className="border p-2 ">
                     <input
-                      value={editForm.role}
+                      value={editForm.product}
                       onChange={handleEditChange}
-                      name="role"
+                      name="product"
+                      className="bg-white w-24 px-2 rounded border"
+                    />
+                  </td>
+                  <td className="border p-2 ">
+                    <input
+                      value={editForm.amount}
+                      onChange={handleEditChange}
+                      name="amount"
                       className="bg-white w-24 px-2 rounded border"
                     />
                   </td>
                   <td className="border p-2 ">
                     <button
-                      onClick={() => handleEditSave(user._id)}
+                      onClick={() => handleEditSave(product._id)}
                       className="cursor-pointer bg-teal-400 hover:bg-teal-500 text-white px-2 rounded-xl"
                     >
                       Save
@@ -163,18 +174,19 @@ export function SaleTable({ users, setUsers, fetchUsers, API }) {
                 </>
               ) : (
                 <>
-                  <td className="border p-2 ">{user.username}</td>
-                  <td className="border p-2 ">{user.email}</td>
-                  <td className="border p-2 ">{user.role}</td>
+                  <td className="border p-2 ">{product.order}</td>
+                  <td className="border p-2 ">{product.customer}</td>
+                  <td className="border p-2 ">{product.product}</td>
+                  <td className="border p-2 ">{product.amount}</td>
                   <td className="border p-2 flex justify-center gap-4">
                     <button
-                      onClick={() => handleEdit(user)}
+                      onClick={() => handleEdit(product)}
                       className="cursor-pointer bg-teal-400 hover:bg-teal-500 text-white px-5 rounded-xl"
                     >
                       Edit
                     </button>
                     <button
-                      onClick={() => handleDelete(user._id)}
+                      onClick={() => handleDelete(product._id)}
                       className="cursor-pointer bg-rose-400 hover:bg-rose-500 text-white px-2 rounded-xl"
                     >
                       Delete
