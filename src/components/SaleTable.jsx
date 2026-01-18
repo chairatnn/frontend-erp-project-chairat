@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 
-export function SaleTable({ products, setProducts, fetchProducts, API }) {
+export function SaleTable({ products = [], setProducts, fetchProducts, API }) {
   const [form, setForm] = useState({
     order: "",
     customer: "",
@@ -17,8 +17,13 @@ export function SaleTable({ products, setProducts, fetchProducts, API }) {
     amount: "",
   });
 
+  // เพิ่ม State สำหรับจัดการข้อความ Error เพื่อแสดงผลบนหน้าจอ
+  const [errorMessage, setErrorMessage] = useState("");
+
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
+    // เมื่อผู้ใช้เริ่มพิมพ์ใหม่ ให้ล้างข้อความ Error ทิ้ง
+    if (errorMessage) setErrorMessage("");
   };
 
   const handleEditChange = (e) => {
@@ -27,6 +32,7 @@ export function SaleTable({ products, setProducts, fetchProducts, API }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setErrorMessage(""); // ล้างค่า Error ก่อนเริ่มส่งข้อมูล
     try {
       await axios.post(API, form, { withCredentials: true });
       await fetchProducts();
@@ -38,7 +44,24 @@ export function SaleTable({ products, setProducts, fetchProducts, API }) {
         amount: "",
       });
     } catch (error) {
-      console.error("Error creating oder:", error);
+      console.error("Error creating order:", error);
+      // ดักจับ Error จาก Backend
+      if (error.response) {
+        if (error.response.status === 409) {
+          const msg =
+            error.response.data.message ||
+            "This order already exists in the system.";
+          setErrorMessage(msg);
+          alert(`⚠️ Unable to save: ${msg}`);
+        } else if (error.response.status === 401) {
+          alert("❌ Session has expired. Please log in again.");
+        } else {
+          alert("❌ System error occurred. Please try again.");
+        }
+      } else {
+        console.error("Network Error:", error);
+        alert("❌ Unable to connect to server.");
+      }
     }
   };
 
@@ -107,7 +130,7 @@ export function SaleTable({ products, setProducts, fetchProducts, API }) {
           type="submit"
           className="cursor-pointer bg-sky-500 hover:bg-sky-600 text-white px-3 py-2 mx-1 rounded-4xl"
         >
-          Save new oder
+          Save Oder
         </button>
       </form>
       <table className="w-full border-separate">

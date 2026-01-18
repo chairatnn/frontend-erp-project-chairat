@@ -9,7 +9,7 @@ import { PurchaseTable } from "../components/PurchaseTable";
 import { WarehouseTable } from "../components/WarehouseTable";
 
 export default function Home() {
-  const { user, authLoading, apiBase } = useOutletContext();
+  const { user, authLoading, apiBase, apiBase2 } = useOutletContext();
   const [view, setView] = useState(null);
   const [users, setUsers] = useState([]);
   const [products, setProducts] = useState([]);
@@ -21,19 +21,19 @@ export default function Home() {
 
   const fetchUsers = async () => {
     try {
-      const res1 = await axios.get(apiBase);
-      setUsers(res1.data.data);
+      const res = await axios.get(apiBase);
+      setUsers(res.data.data);
     } catch {
       alert("Failed to fetch users");
     }
   };
 
-  const fetchProducts = async () => {
+    const fetchProducts = async () => {
     try {
-      const res2 = await axios.get(apiBase);
+      const res2 = await axios.get(apiBase2);
       setProducts(res2.data.data);
     } catch {
-      alert("Failed to fetch products");
+      alert("Failed to fetch users");
     }
   };
 
@@ -56,7 +56,7 @@ export default function Home() {
       const response = await axios.post(
         `${apiBase}/auth/ai/ask`,
         { question: q, topK: 5 },
-        { withCredentials: true }
+        { withCredentials: true },
       );
       console.log(response.data);
       setAskResult(response.data?.data || null);
@@ -194,7 +194,7 @@ export default function Home() {
                 products={products}
                 setProducts={setProducts}
                 fetchProducts={fetchProducts}
-                API={apiBase}
+                API={apiBase2}
               />
             ) : (
               <div>Please login to access with Sale role</div>

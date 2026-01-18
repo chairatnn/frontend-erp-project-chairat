@@ -1,47 +1,10 @@
 import ContactForm from "./ContactForm.jsx";
-import { motion } from "framer-motion";
 import {
-  IconCode,
-  IconDatabase,
-  IconBrandReact,
-  IconBrandNodejs,
-  IconBrandPython,
-  IconBrandJavascript,
-  IconBrandHtml5,
-  IconBrandCss3,
-  IconBrandTailwind,
-  IconBrandMongodb,
-  IconBrandFirebase,
-  IconBrandTypescript,
-  IconBrandGit,
-  IconDeviceDesktop,
   IconMail,
-  IconBrandLinkedin,
-  IconBrandGithub,
-  IconExternalLink,
-  IconDownload,
   IconMapPin,
   IconPhone,
-  IconSchool,
-  IconCertificate,
-  IconCalendar,
-  IconTrophy,
-  IconApi,
-  IconFlask,
-  IconBrandRedux,
-  IconChartBar,
-  IconChartLine,
-  IconTerminal,
-  IconBrandNextjs,
   IconDatabase as IconPostgreSQL,
-  IconBrandSocketIo,
-  IconBrandDocker,
-  IconBrandStripe,
-  IconServer,
-  IconWorldWww,
-  IconBolt,
 } from "@tabler/icons-react";
-import { Highlighter } from "../components/ui/highlighter.jsx";
 
 export default function AboutUs() {
   return (
@@ -55,23 +18,22 @@ export default function AboutUs() {
         ensure you have the best experience possible while using our
         services.Whether you are looking to get started or want to share your
         thoughts, I am here to assist: Sign Up / Feedback / Suggestions
-        <br />
-        <br />
-        <strong className="text-amber-600 text-xl">
-          "I look forward to hearing from you!"
-        </strong>
       </p>
 
       {/* Contact Section */}
       <section>
         <div className="flex flex-col items-center w-full max-w-3xl bg-gradient-to-l from-gray-200 to-gray-100 backdrop-blur-sm border rounded-2xl p-5">
           <h2 className="text-xl text-center md:text-3xl font-bold pb-2 mb-6">
-            Let's Connect 🚀
+            Let's Connect 🚀 <br />
+            <strong className="text-blue-600 text-xs md:text-xl">
+              "I look forward to hearing from you!"
+            </strong>
+            <br />
           </h2>
           <div className="grid md:grid-cols-2 gap-4 md:gap-8">
             <div className="px-2">
               <h3 className="text-xl sm:text-2xl font-semibold mb-6">
-                Get in Touch 
+                Get in Touch
               </h3>
               <div className="space-y-4">
                 <div className="flex items-center gap-3 sm:gap-4 text-blue-600">

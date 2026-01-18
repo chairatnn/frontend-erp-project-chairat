@@ -95,7 +95,7 @@ export default function DashBoard () {
   return (
     <ChartContainer config={chartConfig} className="min-h-50 w-full">
       <h1 className="text-xl md:text-2xl font-bold text-center md:text-left px-2 py-4">
-        Financial Analysis 💰💰💰
+        Financial Analysis
       </h1>
       <BarChart accessibilityLayer data={chartData}>
         <CartesianGrid vertical={false} />
